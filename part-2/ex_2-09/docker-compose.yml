@@ -1,0 +1,45 @@
+version: '3.8'
+
+# NOTE: This file is based on the one created in exercise 2.6 - this nginx is not configured.
+
+# I wasn't quite sure what the aim of this exercise was - after all, I did specify volume "database:/var/lib/postgresql/data" already in the previous exercise. However, I interpreted that the point was to bind a local directory (./database - OUTSIDE of the container) to be the container's database.
+
+services:
+  redis:
+    image: redis
+    restart: unless-stopped
+
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=example
+    volumes:
+      - ./database:/var/lib/postgresql/data
+
+  backend:
+    image: backend
+    environment:
+      - FRONT_URL=http://localhost:5000
+      - REDIS=redis
+      - REDIS_PORT=6379
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=example
+      - DB_HOST=db
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+      - db
+
+  frontend:
+    image: frontend
+    environment:
+      - API_URL=http://localhost:8000
+    ports:
+      - 5000:5000
+
+volumes:
+  database:
+
+
