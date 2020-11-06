@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis
+    restart: unless-stopped
+
+  back:
+    image: backend
+    environment:
+      - FRONT_URL=http://localhost:5000
+      - REDIS=redis
+      - REDIS_PORT=6379
+    volumes:
+      - ./logs.txt:/backend/logs.txt
+    ports:
+      - 8000:8000
+
+  front:
+    image: frontend
+    environment:
+      - API_URL=http://localhost:8000
+    ports:
+      - 5000:5000
+
