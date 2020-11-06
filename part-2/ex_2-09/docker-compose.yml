@@ -2,8 +2,6 @@ version: '3.8'
 
 # NOTE: This file is based on the one created in exercise 2.6 - this nginx is not configured.
 
-# I wasn't quite sure what the aim of this exercise was - after all, I did specify volume "database:/var/lib/postgresql/data" already in the previous exercise. However, I interpreted that the point was to bind a local directory (./database - OUTSIDE of the container) to be the container's database.
-
 services:
   redis:
     image: redis
