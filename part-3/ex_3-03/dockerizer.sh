@@ -1,10 +1,10 @@
 #!bin/sh
 
-SOURCE=$1
-DEST=$2
+NAME=$1
+SOURCE=$2
+DEST=$3
 
-docker -v && \
-git --version && \
-git clone $SOURCE project && \
-docker build -t $DEST ./src && \
+git clone $SOURCE $NAME && \
+docker build -t $DEST ./$NAME && \
+docker login && \
 docker push $DEST
