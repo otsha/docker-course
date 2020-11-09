@@ -1,0 +1,12 @@
+FROM node:lts-alpine
+
+ENV FRONT_URL=http://localhost:5000
+
+WORKDIR /backend
+COPY . ./
+
+RUN npm install && npm audit fix
+
+USER node
+
+CMD ["npm", "start"]
