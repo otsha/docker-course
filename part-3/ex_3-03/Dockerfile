@@ -1,8 +1,5 @@
 FROM docker:stable-git
 
-ARG DOCKER_LOGIN
-ARG DOCKER_PASSWORD
-
 WORKDIR /dockerizer
 
 COPY ./dockerizer.sh .
